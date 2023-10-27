@@ -3,7 +3,7 @@
    .ppk key pair
    Edit Network settings
    Select subnet with east-1a
-   Add security groups - HTTP and HTTPS
+   Add security groups - HTTP and HTTPS with anywhere access.
 
 2) Create Database Instance:
    Select MySQL
@@ -12,7 +12,15 @@
    Public Access: Yes
    Create new VPC security groups: 
    Availability Zone: east - 1a
-   
+
+//Change inbound security rules in network security. Add MSSQL source and Anywhere in it.
+//Add the following to php connection files
+$server = <database_instance_endpoint>; //Eg:cart.c12rgtfnbkyw.us-east-1.rds.amazonaws.com
+$username = "admin";
+$password = <password>;
+$database = <database_name>;
+
+$conn = mysqli_connect($server, $username, $password, $database); 
 
 3) Inside Putty:
 
@@ -23,3 +31,24 @@
          4) sudo apt-get install php libapache2-mod-php php-mysql
          5) sudo systemctl restart apache2
          6) sudo chmod 777 /var/www/html -R
+         7) sudo apt install mysql-client
+         8) telnet <database_endpoint>
+//If you get Trying <ip> then security groups in database inbound are not allowing access.
+         9) mysql -u admin -h <database_endpoint> -p
+//Enter your database password.
+//Add data in the mysql through the command line and enter last command exit; at the end to end mysql database.
+//show databases;
+//create database <database_name>
+//create and insert values in table as per use case.
+
+4) Inside FileZilla:
+  Go to Edit->Settings->SFTP->Add key pair(.ppk) -> OK
+  Hostname :<Public_EC2_IP> , username: ubuntu, password: <Your password>, port:22
+  Quick connect.
+  Go in main ('/') folder -> var->www->html
+  Add your php folder within var/www/html and delete index.html
+
+Note : (Add php files in folder and add folder to html folder).
+
+open <Public_EC2_IP>/<PHP_Folder_Name>/<PHP_FILE_NAME.php> in browser
+
