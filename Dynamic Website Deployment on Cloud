@@ -32,7 +32,7 @@ $conn = mysqli_connect($server, $username, $password, $database);
          5) sudo systemctl restart apache2
          6) sudo chmod 777 /var/www/html -R
          7) sudo apt install mysql-client
-         8) telnet <database_endpoint>
+         8) telnet <database_endpoint> 3306
 //If you get Trying <ip> then security groups in database inbound are not allowing access.
          9) mysql -u admin -h <database_endpoint> -p
 //Enter your database password.
